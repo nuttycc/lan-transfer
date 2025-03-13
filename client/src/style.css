@@ -11,3 +11,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@layer base { 
+  input, textarea {
+    @apply px-1 caret-pink-500 rounded-md border-2 border-gray-300 bg-transparent p-2 text-sm text-gray-100 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
+  }
+
+  button {
+    @apply cursor-pointer px-2 py-1 rounded-md bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-500;
+  }
+}

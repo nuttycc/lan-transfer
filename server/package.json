@@ -12,5 +12,12 @@
   "packageManager": "pnpm@10.5.0",
   "dependencies": {
     "ws": "^8.18.1"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
   }
 }

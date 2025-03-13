@@ -5,9 +5,43 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app" class="w-dvw max-w-dvw">
+      <div class="peer-b"></div>
+
+      <div class="w-[60dvw] flex flex-col gap-1">
+        <div class="flex flex-col gap-1">
+          <label for="send-msg">Send Message:</label>
+          <textarea id="send-msg" autocomplete="on" placeholder="Enter message..." rows="4" cols="50"></textarea>
+        </div>
+
+        <button id="send-btn">Send</button>
+      </div>
+
+      <div class="web-rtc-container">
+        <div>
+          <form>
+            <textarea id="incoming"></textarea>
+            <button class="send-offer-btn">send offer</button>
+          </form>
+
+          <form>
+            <textarea class="rtc-input"></textarea>
+            <button class="send-rtc-msg">Send via RTC</button>
+          </form>
+          <pre class="rtc-received-msg w-[40dvw] h-[30dvh] bg-slate-800 text-gray-300 p-2 rounded-md"></pre>
+        </div>
+      </div>
+
+      <div class="bg-zinc-800 p-2">
+        <h2>已被发现的客户端</h2>
+        <ul class="discovered-clients w-max flex flex-col gap-1 bg-zinc-700 p-2 rounded-md">
+        </ul>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
