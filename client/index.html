@@ -4,10 +4,29 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Lan Transfer</title>
+    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app" class="flex flex-col">
+      <button class="send-offer">创建连接</button>
+      <div class="flex justify-center gap-4">
+
+        <div class="flex flex-col">
+          <label for="msg-input">发送消息:</label>
+          <textarea name="msg-input" id="msg-input" cols="20" rows="5"></textarea>
+        </div>
+
+
+        <div class="flex flex-col">
+          <label for="received-msg">接收消息:</label>
+          <textarea readonly disabled cols="20" rows="5" id="received-msg" name="received-msg" class="received-msg"></textarea>
+        </div>
+      </div>
+
+      <button class="send-msg">发送</button>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
