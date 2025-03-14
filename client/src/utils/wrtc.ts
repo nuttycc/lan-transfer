@@ -96,6 +96,14 @@ export async function sendAnswer () {
 
 
 export async function addIceCandidate (candidate: RTCIceCandidateInit) {
+
+  // check remoteDescription
+  if(!pc.remoteDescription) {
+    console.log('RemoteDescription is not set, can not add ICE candidate')
+    return
+  }
+
+
   await pc.addIceCandidate(candidate)
 }
 

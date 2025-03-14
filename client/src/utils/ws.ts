@@ -40,9 +40,7 @@ socket.onmessage = (event) => {
         }
         break
       case 'offer': 
-        setRemoteDescription(msg.data)
-        sendAnswer()
-        setPeerB(msg.from)
+        handleOffer(msg.from, msg.data)
         break
       case 'answer':
         setRemoteDescription(msg.data)
@@ -75,4 +73,17 @@ export const sendMessage = (message: string) => {
 }
 
 
+// received off: reject or accept
 
+function handleOffer(from: string, offer: RTCSessionDescriptionInit) {
+  let ok = confirm(`Received offer from ${peerB}. Do you want to accept it?`)
+  if (!ok) {
+    console.log('Offer rejected')
+    return false
+  }
+
+  setRemoteDescription(offer)
+  setPeerB(from)
+  sendAnswer()
+  return true
+}
