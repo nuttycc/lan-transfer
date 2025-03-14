@@ -1,6 +1,6 @@
-import { DiscoveredList, MYINFO } from "./contant";
+import { DiscoveredList, MYINFO } from "../utils/contant";
 import { updateDiscoveredList } from "./dom";
-import { isValidJson } from "./jsonx";
+import { isValidJson } from "../utils/jsonx";
 import {
 	addIceCandidate,
 	peerB,

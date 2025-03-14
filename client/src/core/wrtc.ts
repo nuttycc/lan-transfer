@@ -1,4 +1,4 @@
-import { MYINFO } from "./contant";
+import { MYINFO } from "../utils/contant";
 import { updateReceivedMsg } from "./dom";
 import { sendMessage } from "./ws";
 

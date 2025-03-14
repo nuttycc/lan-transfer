@@ -1,4 +1,4 @@
-import { DiscoveredList, MYINFO } from "./contant";
+import { DiscoveredList, MYINFO } from "../utils/contant";
 import { sendDataChannelMessage, sendOffer } from "./wrtc";
 import { sendMessage } from "./ws";
 

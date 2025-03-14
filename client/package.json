@@ -8,7 +8,7 @@
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"format": "biome format --write",
-    "lint": "biome lint --write"
+		"lint": "biome lint --write"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
@@ -18,11 +18,15 @@
 	},
 	"dependencies": {
 		"@tailwindcss/vite": "^4.0.12",
+		"eruda": "^3.4.1",
 		"parse-json": "^8.1.0",
 		"simple-peer": "^9.11.1",
 		"tailwindcss": "^4.0.12"
 	},
 	"pnpm": {
-		"onlyBuiltDependencies": ["@biomejs/biome", "esbuild"]
+		"onlyBuiltDependencies": [
+			"@biomejs/biome",
+			"esbuild"
+		]
 	}
 }

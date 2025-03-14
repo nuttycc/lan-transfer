@@ -11,6 +11,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.0.12
         version: 4.0.12(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
+      eruda:
+        specifier: ^3.4.1
+        version: 3.4.1
       parse-json:
         specifier: ^8.1.0
         version: 8.1.0
@@ -472,6 +475,9 @@ packages:
 
   err-code@3.0.1:
     resolution: {integrity: sha512-GiaH0KJUewYok+eeY05IIgjtAe4Yltygk9Wqp1V5yVWLdhf0hYZchRjNIT9bb0mSwRcIusT3cx7PJUf3zEIfUA==}
+
+  eruda@3.4.1:
+    resolution: {integrity: sha512-RmaO5yD97URY/9Q0lye3cmmNPoXNKreeePIw7c/zllbscR92CjGFZFuQ70+0fLIvLcKW3Xha8DS8NFhmeNbEBQ==}
 
   esbuild@0.25.1:
     resolution: {integrity: sha512-BGO5LtrGC7vxnqucAe/rmvKdJllfGaYWdyABvyMoXQlfYMb2bbRuReWR5tEGE//4LcNJj9XrkovTqNYRFZHAMQ==}
@@ -950,6 +956,8 @@ snapshots:
       tapable: 2.2.1
 
   err-code@3.0.1: {}
+
+  eruda@3.4.1: {}
 
   esbuild@0.25.1:
     optionalDependencies:

@@ -1,5 +1,7 @@
 import "./style.css";
 
-import "./utils/ws";
-import "./utils/dom";
-import "./utils/wrtc";
+import "./core/ws";
+import "./core/dom";
+import "./core/wrtc";
+
+
