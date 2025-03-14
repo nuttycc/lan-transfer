@@ -4,7 +4,7 @@ import { sendMessage } from "./ws";
 import debug from "debug";
 
 const logger = debug("dom");
-logger("Hello from dom.ts %O", import.meta)
+logger("Hello from dom.ts %O", import.meta);
 
 const sendBtn = <HTMLButtonElement | null>document.getElementById("send-btn");
 const sendMsg = <HTMLTextAreaElement | null>document.getElementById("send-msg");

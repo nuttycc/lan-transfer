@@ -1,11 +1,9 @@
+import eruda from "eruda";
 import { isMobile } from "./check";
 
-
-
-if(isMobile()) {
-  activeEruda();
+if (isMobile()) {
+	activeEruda();
 }
-
 
 //----
 //----
@@ -16,5 +14,13 @@ function activeEruda() {
 	}
 	const script = document.createElement("script");
 	script.src = "https://cdn.jsdelivr.net/npm/eruda";
-	erudaX.append(script);
+
+	script.onload = () => {
+		eruda.init({
+			container: erudaX,
+		});
+		// @ts-ignore
+		eruda.position({ x: "90dvw", y: "90dvh" });
+	};
+	document.body.append(script);
 }
