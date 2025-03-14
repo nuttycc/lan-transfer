@@ -1,5 +1,5 @@
-import './style.css'
+import "./style.css";
 
-import './utils/ws'
-import './utils/dom'
-import './utils/wrtc'
+import "./utils/ws";
+import "./utils/dom";
+import "./utils/wrtc";

@@ -1,5 +1,5 @@
 export interface MyInfo {
-  id: string
-  username: string
-  createAt: number
+	id: string;
+	username: string;
+	createAt: number;
 }
