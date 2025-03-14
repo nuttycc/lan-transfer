@@ -64,8 +64,6 @@ export async function sendOffer (id: string) {
   // const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
   // stream.getTracks().forEach(track => pc.addTrack(track, stream));
 
-
-
   const offer = await pc.createOffer()
   await pc.setLocalDescription(offer)
   setPeerB(id)
