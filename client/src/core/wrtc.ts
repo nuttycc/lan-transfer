@@ -1,12 +1,10 @@
+import debug from "debug";
 import { MYINFO } from "../utils/contant";
 import { updateReceivedMsg } from "./dom";
 import { sendMessage } from "./ws";
-import debug from "debug";
-
 
 const logger = debug("wrtc");
 logger("Hello from wrtc.ts");
-
 
 export let peerB = "";
 

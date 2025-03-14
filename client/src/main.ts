@@ -6,7 +6,6 @@ import "./core/wrtc";
 
 import "./utils/eruda";
 
-
 import debug from "debug";
 localStorage.debug = "*";
 const logger = debug("main");

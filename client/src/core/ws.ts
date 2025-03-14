@@ -1,6 +1,7 @@
+import debug from "debug";
 import { DiscoveredList, MYINFO } from "../utils/contant";
-import { updateDiscoveredList } from "./dom";
 import { isValidJson } from "../utils/jsonx";
+import { updateDiscoveredList } from "./dom";
 import {
 	addIceCandidate,
 	peerB,
@@ -8,11 +9,9 @@ import {
 	setPeerB,
 	setRemoteDescription,
 } from "./wrtc";
-import debug from "debug";
 
 const logger = debug("ws");
-logger("Hello from ws.ts")
-
+logger("Hello from ws.ts");
 
 let socket: WebSocket;
 
