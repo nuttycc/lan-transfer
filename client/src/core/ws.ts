@@ -8,69 +8,86 @@ import {
 	setPeerB,
 	setRemoteDescription,
 } from "./wrtc";
+import debug from "debug";
 
-const socket = new WebSocket("ws://192.168.31.68:3000");
+const logger = debug("ws");
+logger("Hello from ws.ts")
 
-socket.onopen = () => {
-	console.log("Connected to server");
-};
 
-socket.onmessage = (event) => {
-	const isJson = isValidJson(event.data);
+let socket: WebSocket;
 
-	if (isJson) {
-		const msg = JSON.parse(event.data);
-		console.log(`Received -${msg.type}- message from -${msg.from}-:`, msg);
+try {
+	socket = connectWebSocket();
+} catch (error) {
+	console.error("Error connecting to WebSocket server:", error);
+}
 
-		switch (msg.type) {
-			case "welcome":
-				if (msg.to === "new-user") {
-					Object.assign(MYINFO, msg.data);
+function connectWebSocket() {
+	const socket = new WebSocket("ws://192.168.31.68:3000");
 
-					for (const k of msg.clients) {
-						DiscoveredList.add(k);
+	socket.onopen = () => {
+		console.log("Connected to server");
+	};
+
+	socket.onmessage = (event) => {
+		const isJson = isValidJson(event.data);
+
+		if (isJson) {
+			const msg = JSON.parse(event.data);
+			console.log(`Received -${msg.type}- message from -${msg.from}-:`, msg);
+
+			switch (msg.type) {
+				case "welcome":
+					if (msg.to === "new-user") {
+						Object.assign(MYINFO, msg.data);
+
+						for (const k of msg.clients) {
+							DiscoveredList.add(k);
+						}
+						updateDiscoveredList();
 					}
-					updateDiscoveredList();
-				}
 
-				if (msg.to === "all" && msg.data.id !== MYINFO.id) {
-					DiscoveredList.add(msg.data.id);
-					updateDiscoveredList();
-				}
-				break;
-			case "leave":
-				if (msg.to === "all") {
-					DiscoveredList.delete(msg.data.id);
-					updateDiscoveredList();
-				}
-				break;
-			case "offer":
-				handleOffer(msg.from, msg.data);
-				break;
-			case "answer":
-				setRemoteDescription(msg.data);
-				break;
-			case "ice":
-				addIceCandidate(msg.data);
-				break;
-			default:
-				console.log("Unknown message type:", msg.type);
-				break;
+					if (msg.to === "all" && msg.data.id !== MYINFO.id) {
+						DiscoveredList.add(msg.data.id);
+						updateDiscoveredList();
+					}
+					break;
+				case "leave":
+					if (msg.to === "all") {
+						DiscoveredList.delete(msg.data.id);
+						updateDiscoveredList();
+					}
+					break;
+				case "offer":
+					handleOffer(msg.from, msg.data);
+					break;
+				case "answer":
+					setRemoteDescription(msg.data);
+					break;
+				case "ice":
+					addIceCandidate(msg.data);
+					break;
+				default:
+					console.log("Unknown message type:", msg.type);
+					break;
+			}
+		} else {
+			console.log("Received non-JSON message:", event.data);
 		}
-	} else {
-		console.log("Received non-JSON message:", event.data);
-	}
-};
+	};
 
-socket.onclose = () => {
-	DiscoveredList.delete(MYINFO.id);
-	updateDiscoveredList();
-	console.log("Disconnected from server");
-};
+	socket.onclose = () => {
+		DiscoveredList.delete(MYINFO.id);
+		updateDiscoveredList();
+		console.log("Disconnected from server");
+	};
 
-socket.onerror = (error) => {
-	console.error("WebSocket error:", error);
-};
+	socket.onerror = (error) => {
+		console.error("WebSocket error:", error);
+	};
+
+	return socket;
+}
 
 export const sendMessage = (message: string) => {
 	socket.send(message);

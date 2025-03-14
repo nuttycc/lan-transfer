@@ -11,9 +11,15 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.0.12
         version: 4.0.12(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2))
+      debug:
+        specifier: ^4.4.0
+        version: 4.4.0
       eruda:
         specifier: ^3.4.1
         version: 3.4.1
+      loglevel:
+        specifier: ^1.9.2
+        version: 1.9.2
       parse-json:
         specifier: ^8.1.0
         version: 8.1.0
@@ -27,6 +33,9 @@ importers:
       '@biomejs/biome':
         specifier: 1.9.4
         version: 1.9.4
+      '@types/debug':
+        specifier: ^4.1.12
+        version: 4.1.12
       '@types/simple-peer':
         specifier: ^9.11.8
         version: 9.11.8
@@ -441,8 +450,14 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6
 
+  '@types/debug@4.1.12':
+    resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
+
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
+
+  '@types/ms@2.1.0':
+    resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
   '@types/node@22.13.10':
     resolution: {integrity: sha512-I6LPUvlRH+O6VRUqYOcMudhaIdUVWfsjnZavnsraHvpBwaEyMN29ry+0UVJhImYL16xsscu0aske3yA+uPOWfw==}
@@ -579,6 +594,10 @@ packages:
   lightningcss@1.29.2:
     resolution: {integrity: sha512-6b6gd/RUXKaw5keVdSEtqFVdzWnU5jMxTUjA2bVcMNPLwSQ08Sv/UodBVtETLCn7k4S1Ibxwh7k68IwLZPgKaA==}
     engines: {node: '>= 12.0.0'}
+
+  loglevel@1.9.2:
+    resolution: {integrity: sha512-HgMmCqIJSAKqo68l0rS2AanEWfkxaZ5wNiEFb5ggm08lDs9Xl2KxBlX3PTcaD2chBM1gXAYf491/M2Rv8Jwayg==}
+    engines: {node: '>= 0.6.0'}
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
@@ -927,7 +946,13 @@ snapshots:
       tailwindcss: 4.0.12
       vite: 6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.2)
 
+  '@types/debug@4.1.12':
+    dependencies:
+      '@types/ms': 2.1.0
+
   '@types/estree@1.0.6': {}
+
+  '@types/ms@2.1.0': {}
 
   '@types/node@22.13.10':
     dependencies:
@@ -1048,6 +1073,8 @@ snapshots:
       lightningcss-linux-x64-musl: 1.29.2
       lightningcss-win32-arm64-msvc: 1.29.2
       lightningcss-win32-x64-msvc: 1.29.2
+
+  loglevel@1.9.2: {}
 
   ms@2.1.3: {}
 
