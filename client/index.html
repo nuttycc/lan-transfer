@@ -9,37 +9,41 @@
     <script>eruda.init();</script>
   </head>
   <body>
-    <div id="app" class="w-dvw max-w-dvw">
+    <div id="app" class="w-dvw max-w-dvw flex flex-col gap-4">
       <div class="peer-b"></div>
 
-      <div class="w-[60dvw] flex flex-col gap-1">
-        <div class="flex flex-col gap-1">
-          <label for="send-msg">Send Message:</label>
-          <textarea id="send-msg" autocomplete="on" placeholder="Enter message..." rows="4" cols="50"></textarea>
+      <div class="w-full flex flex-row flex-wrap justify-start gap-8 items-center">
+        <div class=" flex flex-col gap-1">
+          <div class="flex flex-col gap-1">
+            <label for="send-msg" class="pl-0">Input Message:</label>
+            <textarea id="send-msg" autocomplete="on" placeholder="Enter message..." rows="4" cols="30"></textarea>
+          </div>
+          <button id="send-btn">Send via Socket</button>
         </div>
+  
+        <div class="web-rtc-container">
+          <div>
+            <form class="flex flex-col gap-1">
+              <div class="flex flex-col gap-1">
+                <label for="send-msg" class="pl-0">Input Message:</label>
+                <textarea class="rtc-input" rows="4" cols="30" placeholder="Enter message..."></textarea>
+              </div>
 
-        <button id="send-btn">Send</button>
+              <button class="send-rtc-msg">Send via RTC</button>
+            </form>
+          </div>
+        </div>
       </div>
 
-      <div class="web-rtc-container">
-        <div>
-          <form>
-            <textarea id="incoming"></textarea>
-            <button class="send-offer-btn">send offer</button>
-          </form>
-
-          <form>
-            <textarea class="rtc-input"></textarea>
-            <button class="send-rtc-msg">Send via RTC</button>
-          </form>
-          <pre class="rtc-received-msg w-[40dvw] h-[30dvh] bg-slate-800 text-gray-300 p-2 rounded-md"></pre>
-        </div>
+      <div>
+        <div>Received Message:</div>
+        <pre class="rtc-received-msg w-[40dvw] h-[30dvh] bg-slate-800 text-gray-300 p-2 rounded-md"></pre>
       </div>
 
-      <div class="bg-zinc-800 p-2">
+      <div class="w-[40dvw] bg-zinc-800 p-2 flex flex-col gap-2">
         <h2>已被发现的客户端</h2>
-        <ul class="discovered-clients w-max flex flex-col gap-1 bg-zinc-700 p-2 rounded-md">
-        </ul>
+        <button class="send-offer-btn max-w-[8em]">send offer</button>
+        <ul class="discovered-clients w-max flex flex-col gap-1 bg-zinc-700 p-2 rounded-md"></ul>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
