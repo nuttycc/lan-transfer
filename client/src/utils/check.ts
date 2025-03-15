@@ -1,6 +1,6 @@
 import debug from "debug";
 
-const logger = debug("check");
+const logger = debug("lan-transfer:app:debug");
 logger("Hello from check.ts");
 
 // 检查是否是移动平台
