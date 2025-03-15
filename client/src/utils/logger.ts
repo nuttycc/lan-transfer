@@ -67,9 +67,18 @@ export const createLogger = (namespace: string): debug.Debugger => {
 	const fullNamespace = `${APP_NAMESPACE}:${namespace}`;
 	const logger = debug(fullNamespace);
 
-	// In development, we'll use the standard debug output
-	// In production, we'll only log if explicitly enabled
-	return logger;
+	// Create a wrapper function that adds brackets to the message without repeating the namespace
+	const wrappedLogger = ((
+		formatter: string | unknown,
+		...args: unknown[]
+	): void => {
+		logger(`${formatter}`, ...args);
+	}) as debug.Debugger;
+
+	// Copy all properties from the original logger to the wrapper
+	Object.assign(wrappedLogger, logger);
+
+	return wrappedLogger;
 };
 
 /**

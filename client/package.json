@@ -8,11 +8,7 @@
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"format": "biome format --write",
-		"lint": "biome lint --write",
-		"test:logger": "cross-env DEBUG=lan-transfer:* ts-node --project tsconfig.node.json src/examples/test-logger-colors.ts",
-		"test:logger:win": "@powershell -Command $env:DEBUG='lan-transfer:*'; ts-node --project tsconfig.node.json src/examples/test-logger-colors.ts",
-		"test:logger:js": "cross-env DEBUG=lan-transfer:* node src/examples/test-logger-colors.js",
-		"test:logger:js:win": "@powershell -Command $env:DEBUG='lan-transfer:*'; node src/examples/test-logger-colors.js"
+		"lint": "biome lint --write"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",

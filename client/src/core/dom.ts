@@ -1,10 +1,10 @@
 import { DiscoveredList, MYINFO } from "../utils/contant";
+import { createLeveledLogger } from "../utils/logger";
 import { sendDataChannelMessage, sendOffer } from "./wrtc";
 import { sendMessage } from "./ws";
-import debug from "debug";
 
-const logger = debug("dom");
-logger("Hello from dom.ts %O", import.meta);
+const logger = createLeveledLogger("dom");
+logger.debug("Hello from dom.ts %o", import.meta);
 
 const sendBtn = <HTMLButtonElement | null>document.getElementById("send-btn");
 const sendMsg = <HTMLTextAreaElement | null>document.getElementById("send-msg");

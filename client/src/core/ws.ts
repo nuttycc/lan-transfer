@@ -1,6 +1,6 @@
-import debug from "debug";
 import { DiscoveredList, MYINFO } from "../utils/contant";
 import { isValidJson } from "../utils/jsonx";
+import { createLeveledLogger } from "../utils/logger";
 import { updateDiscoveredList } from "./dom";
 import {
 	addIceCandidate,
@@ -10,8 +10,8 @@ import {
 	setRemoteDescription,
 } from "./wrtc";
 
-const logger = debug("ws");
-logger("Hello from ws.ts");
+const logger = createLeveledLogger("ws");
+logger.debug("Hello from ws.ts");
 
 let socket: WebSocket;
 

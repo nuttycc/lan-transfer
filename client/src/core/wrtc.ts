@@ -1,10 +1,10 @@
-import debug from "debug";
 import { MYINFO } from "../utils/contant";
+import { createLeveledLogger } from "../utils/logger";
 import { updateReceivedMsg } from "./dom";
 import { sendMessage } from "./ws";
 
-const logger = debug("wrtc");
-logger("Hello from wrtc.ts");
+const logger = createLeveledLogger("wrtc");
+logger.debug("Hello from wrtc.ts");
 
 export let peerB = "";
 

@@ -1,9 +1,8 @@
 import "./style.css";
-import { logger } from "./utils/logger";
 import "./core/ws";
 import "./core/dom";
 import "./core/wrtc";
-
 import "./utils/eruda";
+import { logger } from "./utils/logger";
 
-logger.debug("Hello from main");
+logger.debug("Hello from main.ts");
