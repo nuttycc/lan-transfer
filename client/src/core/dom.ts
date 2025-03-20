@@ -1,24 +1,9 @@
 import { DiscoveredList, MYINFO } from "../utils/contant";
 import { createLeveledLogger } from "../utils/logger";
 import { sendDataChannelMessage, sendFiles, sendOffer } from "./wrtc";
-// import { sendMsgViaSocket } from "./ws";
 
 const logger = createLeveledLogger("dom");
 logger.debug("Hello from dom.ts %o", import.meta);
-
-// send message via websocket
-// const sendBtn = <HTMLButtonElement | null>document.getElementById("send-btn");
-// const sendMsg = <HTMLTextAreaElement | null>document.getElementById("send-msg");
-
-// if (!sendBtn || !sendMsg) {
-// 	throw new Error("Could not find send button or message input");
-// }
-
-// sendBtn.addEventListener("click", () => {
-// 	sendMessage(sendMsg.value);
-// 	sendMsg.value = "";
-// 	console.log("Message sent:", sendMsg.value);
-// });
 
 // UI
 export function updateDiscoveredList() {
