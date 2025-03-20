@@ -3,6 +3,9 @@
 	"module": "index.ts",
 	"type": "module",
 	"private": true,
+	"scripts": {
+		"dev": "bun run --watch server.js"
+	},
 	"devDependencies": {
 		"@types/bun": "latest"
 	},

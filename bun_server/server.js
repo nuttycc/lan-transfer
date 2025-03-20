@@ -1,9 +1,10 @@
+import { faker } from "@faker-js/faker";
 import cookie from "cookie";
 import { CLIENTS } from "./src/utils/clients";
-import { faker } from "@faker-js/faker";
 import { isValidJson } from "./src/utils/jsonx";
 
 const server = Bun.serve({
+	port: 3000,
 	fetch(req, server) {
 		const cookies = cookie.parse(req.headers.get("cookie") || "");
 		const id = faker.lorem.word();

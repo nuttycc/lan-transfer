@@ -23,7 +23,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 		// Environment specific configurations
 		server: {
 			host: "0.0.0.0",
-			port: env.PORT ? Number.parseInt(env.PORT) : 3000,
+			port: env.PORT ? Number.parseInt(env.PORT) : 5173,
 			// Only enable HMR in development
 			hmr: !isProduction,
 		},

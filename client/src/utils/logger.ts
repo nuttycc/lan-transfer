@@ -7,7 +7,7 @@ import { config } from "./config";
  */
 
 // Namespace for the application
-const APP_NAMESPACE = "lan-transfer";
+const APP_NAMESPACE = "X";
 
 // Check if we're in a browser environment
 const isBrowser =

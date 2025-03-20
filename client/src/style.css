@@ -39,3 +39,7 @@
 		@apply w-[8em] flex flex-row gap-1 items-center justify-between;
 	}
 }
+
+#app > * {
+	border: 1px solid red;
+}

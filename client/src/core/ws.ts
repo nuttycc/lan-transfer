@@ -11,21 +11,22 @@ import {
 } from "./wrtc";
 
 const logger = createLeveledLogger("ws");
-logger.debug("Hello from ws.ts");
+
+logger.debug("Initializing WebSocket connection...");
 
 let socket: WebSocket;
 
 try {
 	socket = connectWebSocket();
 } catch (error) {
-	console.error("Error connecting to WebSocket server:", error);
+	logger.error("Error connecting to WebSocket server:", error);
 }
 
 function connectWebSocket() {
 	const socket = new WebSocket("ws://192.168.31.68:3000");
 
 	socket.onopen = () => {
-		console.log("Connected to server");
+		logger.info("Connected to WebSocket server");
 	};
 
 	socket.onmessage = (event) => {
@@ -33,15 +34,14 @@ function connectWebSocket() {
 
 		if (isJson) {
 			const msg = JSON.parse(event.data);
-			console.log(`Received -${msg.type}- message from -${msg.from}-:`, msg);
+			logger.debug(`Received message from ${msg.from}:`, msg);
 
 			switch (msg.type) {
 				case "welcome":
 					if (msg.to === "new-user") {
 						Object.assign(MYINFO, msg.data);
-
-						for (const k of msg.clients) {
-							DiscoveredList.add(k);
+						for (const clientId of msg.clients) {
+							DiscoveredList.add(clientId);
 						}
 						updateDiscoveredList();
 					}
@@ -67,28 +67,30 @@ function connectWebSocket() {
 					addIceCandidate(msg.data);
 					break;
 				default:
-					console.log("Unknown message type:", msg.type);
+					logger.warn("Unknown message type received:", msg.type);
 					break;
 			}
 		} else {
-			console.log("Received non-JSON message:", event.data);
+			logger.warn("Received non-JSON message:", event.data);
 		}
 	};
 
 	socket.onclose = () => {
 		DiscoveredList.delete(MYINFO.id);
 		updateDiscoveredList();
-		console.log("Disconnected from server");
+		logger.info("Disconnected from WebSocket server");
 	};
 
 	socket.onerror = (error) => {
-		console.error("WebSocket error:", error);
+		logger.error("WebSocket error:", error);
 	};
 
 	return socket;
 }
 
-export const sendMessage = (message: string) => {
+// send message via websocket
+export const sendMsgViaSocket = (message: string) => {
+	logger.debug("Sending message via WebSocket:", message);
 	socket.send(message);
 };
 
@@ -97,12 +99,13 @@ export const sendMessage = (message: string) => {
 function handleOffer(from: string, offer: RTCSessionDescriptionInit) {
 	const ok = confirm(`Received offer from ${peerB}. Do you want to accept it?`);
 	if (!ok) {
-		console.log("Offer rejected");
+		logger.info("Offer rejected from:", from);
 		return false;
 	}
 
 	setRemoteDescription(offer);
 	setPeerB(from);
 	sendAnswer();
+	logger.info("Offer accepted from:", from);
 	return true;
 }

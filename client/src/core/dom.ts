@@ -1,23 +1,24 @@
 import { DiscoveredList, MYINFO } from "../utils/contant";
 import { createLeveledLogger } from "../utils/logger";
-import { sendDataChannelMessage, sendOffer } from "./wrtc";
-import { sendMessage } from "./ws";
+import { sendDataChannelMessage, sendFiles, sendOffer } from "./wrtc";
+// import { sendMsgViaSocket } from "./ws";
 
 const logger = createLeveledLogger("dom");
 logger.debug("Hello from dom.ts %o", import.meta);
 
-const sendBtn = <HTMLButtonElement | null>document.getElementById("send-btn");
-const sendMsg = <HTMLTextAreaElement | null>document.getElementById("send-msg");
+// send message via websocket
+// const sendBtn = <HTMLButtonElement | null>document.getElementById("send-btn");
+// const sendMsg = <HTMLTextAreaElement | null>document.getElementById("send-msg");
 
-if (!sendBtn || !sendMsg) {
-	throw new Error("Could not find send button or message input");
-}
+// if (!sendBtn || !sendMsg) {
+// 	throw new Error("Could not find send button or message input");
+// }
 
-sendBtn.addEventListener("click", () => {
-	sendMessage(sendMsg.value);
-	sendMsg.value = "";
-	console.log("Message sent:", sendMsg.value);
-});
+// sendBtn.addEventListener("click", () => {
+// 	sendMessage(sendMsg.value);
+// 	sendMsg.value = "";
+// 	console.log("Message sent:", sendMsg.value);
+// });
 
 // UI
 export function updateDiscoveredList() {
@@ -27,8 +28,6 @@ export function updateDiscoveredList() {
 	if (!discoveredList) {
 		throw new Error("Could not find discovered clients list");
 	}
-
-	console.log("Updating discovered list", DiscoveredList);
 
 	const list = [];
 	for (const id of DiscoveredList) {
@@ -106,4 +105,171 @@ export function updateReceivedMsg(msg: string) {
 		throw new Error("Could not find RTC received message element");
 	}
 	rtcReceivedMsg.textContent = msg;
+}
+
+// Send file
+
+const sendFileBtn = <HTMLButtonElement | null>(
+	document.querySelector(".send-file")
+);
+const fileInput = <HTMLInputElement | null>(
+	document.querySelector(".file-input")
+);
+if (!sendFileBtn || !fileInput) {
+	throw new Error("Could not find send file button");
+}
+
+sendFileBtn.addEventListener("click", async (event) => {
+	event.preventDefault();
+	logger.debug("Send file to", fileInput.files);
+	if (!fileInput.files || fileInput.files.length === 0) {
+		throw new Error("No files selected");
+	}
+	sendFiles(fileInput.files);
+});
+
+// Display received files
+export function displayReceivedFile(file: File) {
+	const filesListContainer = <HTMLDivElement | null>(
+		document.querySelector(".files-list")
+	);
+
+	if (!filesListContainer) {
+		throw new Error("Could not find files list container");
+	}
+
+	// Create URL for the file
+	const fileUrl = URL.createObjectURL(file);
+
+	// Create file item container
+	const fileItem = document.createElement("div");
+	fileItem.className =
+		"file-item flex flex-col gap-2 p-3 bg-gray-100 rounded mb-2";
+
+	// File header with icon and info
+	const fileHeader = document.createElement("div");
+	fileHeader.className = "flex items-center gap-2";
+
+	// Create icon based on file type
+	const icon = document.createElement("span");
+	const fileType = file.type.split("/")[0];
+	let iconClass = "📄"; // Default document icon
+
+	if (fileType === "image") {
+		iconClass = "🖼️";
+	} else if (fileType === "video") {
+		iconClass = "🎬";
+	} else if (fileType === "audio") {
+		iconClass = "🔊";
+	} else if (file.name.endsWith(".pdf")) {
+		iconClass = "📑";
+	} else if (file.name.endsWith(".zip") || file.name.endsWith(".rar")) {
+		iconClass = "🗜️";
+	}
+
+	icon.textContent = iconClass;
+
+	// File info
+	const fileInfo = document.createElement("div");
+	fileInfo.className = "flex-1";
+
+	const fileName = document.createElement("div");
+	fileName.className = "font-medium text-sm";
+	fileName.textContent = file.name;
+
+	const fileSize = document.createElement("div");
+	fileSize.className = "text-xs text-gray-500";
+	fileSize.textContent = formatFileSize(file.size);
+
+	fileInfo.appendChild(fileName);
+	fileInfo.appendChild(fileSize);
+
+	// Download button
+	const downloadLink = document.createElement("a");
+	downloadLink.href = fileUrl;
+	downloadLink.download = file.name;
+	downloadLink.className =
+		"download-btn bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600";
+	downloadLink.textContent = "Download";
+	downloadLink.setAttribute("role", "button");
+	downloadLink.setAttribute("tabindex", "0");
+	downloadLink.setAttribute("aria-label", `Download ${file.name}`);
+
+	// Add keyboard handler for accessibility
+	downloadLink.addEventListener("keydown", (e) => {
+		if (e.key === "Enter" || e.key === " ") {
+			e.preventDefault();
+			downloadLink.click();
+		}
+	});
+
+	// Append elements to file header
+	fileHeader.appendChild(icon);
+	fileHeader.appendChild(fileInfo);
+	fileHeader.appendChild(downloadLink);
+
+	// Add file header to main container
+	fileItem.appendChild(fileHeader);
+
+	// Add preview for compatible file types
+	if (canPreviewFile(file)) {
+		const previewContainer = document.createElement("div");
+		previewContainer.className = "file-preview mt-2 w-full";
+
+		if (fileType === "image") {
+			const img = document.createElement("img");
+			img.src = fileUrl;
+			img.className = "max-h-32 max-w-full rounded";
+			img.alt = file.name;
+			previewContainer.appendChild(img);
+		} else if (fileType === "video") {
+			const video = document.createElement("video");
+			video.src = fileUrl;
+			video.className = "max-h-32 max-w-full rounded";
+			video.controls = true;
+			previewContainer.appendChild(video);
+		} else if (fileType === "audio") {
+			const audio = document.createElement("audio");
+			audio.src = fileUrl;
+			audio.className = "w-full";
+			audio.controls = true;
+			previewContainer.appendChild(audio);
+		} else if (file.type === "application/pdf") {
+			const embedLink = document.createElement("a");
+			embedLink.href = fileUrl;
+			embedLink.target = "_blank";
+			embedLink.className = "text-blue-600 text-xs hover:underline";
+			embedLink.textContent = "View PDF";
+			previewContainer.appendChild(embedLink);
+		}
+
+		fileItem.appendChild(previewContainer);
+	}
+
+	// Add to container
+	filesListContainer.appendChild(fileItem);
+
+	logger.info(`File displayed in UI: ${file.name}`);
+}
+
+// Helper function to check if file can be previewed
+function canPreviewFile(file: File): boolean {
+	const fileType = file.type.split("/")[0];
+	return (
+		fileType === "image" ||
+		fileType === "video" ||
+		fileType === "audio" ||
+		file.type === "application/pdf"
+	);
+}
+
+// Helper function to format file size
+function formatFileSize(bytes: number): string {
+	if (bytes === 0) return "0 Bytes";
+
+	const k = 1024;
+	const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+	const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+	return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
 }

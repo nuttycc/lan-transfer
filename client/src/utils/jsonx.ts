@@ -1,4 +1,4 @@
-import parseJson, { JSONError } from "parse-json";
+import parseJson from "parse-json";
 
 export function isValidJson(str: string) {
 	try {
