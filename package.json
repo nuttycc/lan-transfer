@@ -4,6 +4,15 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"start": "concurrently \"pnpm run start:bun\" \"pnpm run start:client\"",
+		"start:server": "cd bun_server && node server.js",
+		"start:bun": "cd bun_server && bun run server.js",
+		"start:client": "cd client && pnpm run build && pnpm run preview",
+		"build": "pnpm run build:client",
+		"build:client": "cd client && pnpm run build",
+		"dev": "pnpm run dev:server & pnpm run dev:client",
+		"dev:server": "cd bun_server && bun run --watch server.js",
+		"dev:client": "cd client && pnpm run dev",
 		"format": "biome format --write",
 		"lint": "biome lint --write",
 		"prepare": "husky",
@@ -15,6 +24,7 @@
 	"packageManager": "pnpm@10.5.0",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
+		"concurrently": "^9.1.2",
 		"husky": "^9.1.7",
 		"lint-staged": "^15.5.0"
 	},

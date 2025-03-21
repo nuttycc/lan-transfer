@@ -4,6 +4,7 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
+		"start": "bun run server.js",
 		"dev": "bun run --watch server.js"
 	},
 	"devDependencies": {
