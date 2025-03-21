@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "concurrently \"pnpm run start:bun\" \"pnpm run start:client\"",
 		"start:server": "cd bun_server && node server.js",
-		"start:bun": "cd bun_server && bun run server.js",
+		"start:bun": "cd bun_server && bun i && bun run server.js",
 		"start:client": "cd client && pnpm run preview",
 		"build": "pnpm i && pnpm run build:client",
 		"build:client": "cd client && pnpm i && pnpm run build",
