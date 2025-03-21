@@ -1,24 +1,35 @@
 {
-  "name": "lan-transfer",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "typescript": "~5.7.2",
-    "vite": "^6.2.0"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.0.12",
-    "tailwindcss": "^4.0.12"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
-  }
+	"name": "lan-transfer",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"format": "biome format --write",
+		"lint": "biome lint --write"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@types/debug": "^4.1.12",
+		"@types/node": "^20.11.30",
+		"@types/simple-peer": "^9.11.8",
+		"cross-env": "^7.0.3",
+		"ts-node": "^10.9.2",
+		"typescript": "~5.7.2",
+		"vite": "^6.2.0"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.0.12",
+		"debug": "^4.4.0",
+		"eruda": "^3.4.1",
+		"loglevel": "^1.9.2",
+		"parse-json": "^8.1.0",
+		"simple-peer": "^9.11.1",
+		"tailwindcss": "^4.0.12"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": ["@biomejs/biome", "esbuild"]
+	}
 }

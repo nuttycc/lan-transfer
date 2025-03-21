@@ -13,13 +13,47 @@
 
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+	color-scheme: light dark;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: rgba(15, 15, 15, 1);
+	color: var(--color-zinc-300);
+	background-image: linear-gradient(
+			rgba(255, 255, 255, 0.05) 1px,
+			transparent 1px
+		), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+	background-size: 20px 20px;
 }
 
+@layer base {
+	input,
+	textarea {
+		@apply w-fit 
+    px-1 rounded-md border-2 bg-transparent p-2 text-sm
+    border-gray-300  text-gray-100  caret-pink-500
+    focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500;
+	}
+
+	button {
+		@apply w-fit
+    cursor-pointer px-2 py-1 rounded-md border border-transparent
+    shadow-sm shadow-blue-700 bg-[#374AA9] text-[#C5D7E8] hover:bg-blue-600;
+	}
+}
+
+@layer components {
+	.client-radio {
+		@apply w-[8em] flex flex-row gap-1 items-center justify-between;
+	}
+}
+
+#app > * {
+	border: 1px solid var(--color-stone-500);
+	background-color: var(--color-neutral-900);
+	padding: 1rem;
+}

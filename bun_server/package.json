@@ -1,0 +1,20 @@
+{
+	"name": "bun_server",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "bun run --watch server.js"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@faker-js/faker": "^9.6.0",
+		"consola": "^3.4.0",
+		"cookie": "^1.0.2"
+	}
+}
