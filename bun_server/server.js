@@ -12,7 +12,7 @@ const server = Bun.serve({
 		// upgrade the request to a WebSocket
 		const success = server.upgrade(req, {
 			headers: {
-				"Set-Cookie": `SessionId=${id}`,
+				"Set-Cookie": `test='${id}'`,
 			},
 			data: {
 				id: id,
@@ -48,14 +48,12 @@ const server = Bun.serve({
 			}
 		},
 		open(ws) {
-			ws.send("Server Opened!");
-
 			CLIENTS.set(ws.data.id, ws);
 
 			ws.send(
 				JSON.stringify({
 					type: "welcome",
-					from: "system",
+					from: "server",
 					to: "new-user",
 					data: ws.data,
 					clients: Array.from(CLIENTS.keys()), //已经存在的 clients
@@ -67,7 +65,7 @@ const server = Bun.serve({
 				"test-chat",
 				JSON.stringify({
 					type: "welcome",
-					from: "system",
+					from: "server",
 					to: "all",
 					data: ws.data,
 				}),
@@ -81,7 +79,7 @@ const server = Bun.serve({
 				"test-chat",
 				JSON.stringify({
 					type: "leave",
-					from: "system",
+					from: "server",
 					to: "all",
 					data: ws.data,
 				}),

@@ -10,11 +10,12 @@ import {
 	setRemoteDescription,
 } from "./wrtc";
 
-const logger = createLeveledLogger("ws");
+const logger = createLeveledLogger("[ws]");
 
-logger.debug("Initializing WebSocket connection...");
+logger.debug("Initializing WebSocket module...");
 
 let socket: WebSocket;
+const whiteList = ["test", "all"];
 
 try {
 	socket = connectWebSocket();
@@ -23,7 +24,7 @@ try {
 }
 
 function connectWebSocket() {
-	const socket = new WebSocket("ws://192.168.31.68:3000");
+	const socket = new WebSocket("ws://localhost:3000");
 
 	socket.onopen = () => {
 		logger.info("Connected to WebSocket server");
@@ -34,7 +35,7 @@ function connectWebSocket() {
 
 		if (isJson) {
 			const msg = JSON.parse(event.data);
-			logger.debug(`Received message from ${msg.from}:`, msg);
+			logger.debug(`Received |${msg.type}| message from |${msg.from}|:`, msg);
 
 			switch (msg.type) {
 				case "welcome":
@@ -97,10 +98,16 @@ export const sendMsgViaSocket = (message: string) => {
 // received off: reject or accept
 
 function handleOffer(from: string, offer: RTCSessionDescriptionInit) {
-	const ok = confirm(`Received offer from ${peerB}. Do you want to accept it?`);
-	if (!ok) {
-		logger.info("Offer rejected from:", from);
-		return false;
+	if (whiteList && (whiteList.includes(from) || whiteList.includes("all"))) {
+		logger.info("Offer accepted from (WhiteList):", from);
+	} else {
+		const ok = confirm(
+			`Received offer from ${peerB}. Do you want to accept it?`,
+		);
+		if (!ok) {
+			logger.info("Offer rejected from:", from);
+			return false;
+		}
 	}
 
 	setRemoteDescription(offer);

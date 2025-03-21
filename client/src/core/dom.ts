@@ -2,8 +2,8 @@ import { DiscoveredList, MYINFO } from "../utils/contant";
 import { createLeveledLogger } from "../utils/logger";
 import { sendDataChannelMessage, sendFiles, sendOffer } from "./wrtc";
 
-const logger = createLeveledLogger("dom");
-logger.debug("Hello from dom.ts %o", import.meta);
+const logger = createLeveledLogger("[dom]");
+logger.debug("Initializing dom module...");
 
 // UI
 export function updateDiscoveredList() {
@@ -60,8 +60,6 @@ sendOfferBtn.addEventListener("click", async (event) => {
 	event.preventDefault();
 	const peer = getPeerRadio();
 	await sendOffer(peer);
-
-	console.log("Send offer to", peer);
 });
 
 // RTC msg
@@ -100,9 +98,15 @@ const sendFileBtn = <HTMLButtonElement | null>(
 const fileInput = <HTMLInputElement | null>(
 	document.querySelector(".file-input")
 );
-if (!sendFileBtn || !fileInput) {
+const fileName = <HTMLSpanElement | null>document.querySelector(".file-name");
+if (!sendFileBtn || !fileInput || !fileName) {
 	throw new Error("Could not find send file button");
 }
+
+fileInput.addEventListener("change", (event) => {
+	event.preventDefault();
+	fileName.textContent = fileInput.files?.[0]?.name || "Select File";
+});
 
 sendFileBtn.addEventListener("click", async (event) => {
 	event.preventDefault();
@@ -129,11 +133,11 @@ export function displayReceivedFile(file: File) {
 	// Create file item container
 	const fileItem = document.createElement("div");
 	fileItem.className =
-		"file-item flex flex-col gap-2 p-3 bg-gray-100 rounded mb-2";
+		"file-item flex flex-col gap-2 p-1 bg-gray-600 rounded mb-2";
 
 	// File header with icon and info
 	const fileHeader = document.createElement("div");
-	fileHeader.className = "flex items-center gap-2";
+	fileHeader.className = "flex items-center gap-1";
 
 	// Create icon based on file type
 	const icon = document.createElement("span");
@@ -163,7 +167,7 @@ export function displayReceivedFile(file: File) {
 	fileName.textContent = file.name;
 
 	const fileSize = document.createElement("div");
-	fileSize.className = "text-xs text-gray-500";
+	fileSize.className = "text-xs text-gray-100";
 	fileSize.textContent = formatFileSize(file.size);
 
 	fileInfo.appendChild(fileName);
@@ -175,7 +179,7 @@ export function displayReceivedFile(file: File) {
 	downloadLink.download = file.name;
 	downloadLink.className =
 		"download-btn bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600";
-	downloadLink.textContent = "Download";
+	downloadLink.textContent = "⬇️";
 	downloadLink.setAttribute("role", "button");
 	downloadLink.setAttribute("tabindex", "0");
 	downloadLink.setAttribute("aria-label", `Download ${file.name}`);

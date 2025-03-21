@@ -7,19 +7,19 @@ declare const __APP_ENV__: string;
 declare const __API_URL__: string;
 
 // Add type definitions for Vite's import.meta.env
-interface ImportMetaEnv {
-	readonly VITE_APP_NAME: string;
-	readonly VITE_APP_VERSION: string;
-	readonly VITE_API_ENDPOINT: string;
-	readonly VITE_ENABLE_ANALYTICS: string;
-	readonly VITE_DEBUG_TOOLS: string;
-	readonly DEBUG: string;
-	// Add more env variables as needed
-}
+// interface ImportMetaEnv {
+// 	readonly VITE_APP_NAME: string;
+// 	readonly VITE_APP_VERSION: string;
+// 	readonly VITE_API_ENDPOINT: string;
+// 	readonly VITE_ENABLE_ANALYTICS: string;
+// 	readonly VITE_DEBUG_TOOLS: string;
+// 	readonly DEBUG: string;
+// 	// Add more env variables as needed
+// }
 
-interface ImportMeta {
-	readonly env: ImportMetaEnv;
-}
+// interface ImportMeta {
+// 	readonly env: ImportMetaEnv;
+// }
 
 // Environment type
 export type Environment = "development" | "production" | "test";

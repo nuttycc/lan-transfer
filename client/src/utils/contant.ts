@@ -1,4 +1,4 @@
-import type { MyInfo } from "../type/myinfo";
+import type { MyInfo } from "../types/myinfo";
 
 export const DiscoveredList: Set<string> = new Set();
 

@@ -41,5 +41,7 @@
 }
 
 #app > * {
-	border: 1px solid red;
+	border: 1px solid var(--color-stone-500);
+	background-color: var(--color-neutral-900);
+	padding: 1rem;
 }
