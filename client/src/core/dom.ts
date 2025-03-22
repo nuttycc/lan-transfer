@@ -1,6 +1,8 @@
 import { DiscoveredList, MYINFO } from "../utils/contant";
 import { createLeveledLogger } from "../utils/logger";
-import { sendDataChannelMessage, sendFiles, sendOffer } from "./wrtc";
+import { sendFiles } from "../utils/wrtc.ts/file";
+import { sendOffer } from "../utils/wrtc.ts/handler";
+import { sendDataChannelMessage } from "../utils/wrtc.ts/msg";
 
 const logger = createLeveledLogger("[dom]");
 logger.debug("Initializing dom module...");
