@@ -136,8 +136,9 @@ const server = Bun.serve({
             }
 
             log('Connecting to WebSocket server...');
-            // 直接连接到根路径，无需指定/ws
-            ws = new WebSocket(\`ws://\${window.location.host}\`);
+            // 检测当前协议，如果是HTTPS则使用WSS，否则使用WS
+            const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+            ws = new WebSocket(\`\${protocol}\${window.location.host}\`);
             
             ws.onopen = () => {
                 log('Connected to server');
