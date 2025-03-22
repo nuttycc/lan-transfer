@@ -19,6 +19,8 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 			},
 		},
 		plugins: [tailwindcss()],
+		// 为GitHub Pages添加基础路径配置
+		base: isProduction ? "/lan-transfer/" : "/",
 
 		// Environment specific configurations
 		server: {

@@ -1,4 +1,9 @@
 ---
+description: 
+globs: 
+alwaysApply: false
+---
+---
 description: Front-End Developer
 globs: 
 alwaysApply: true
@@ -38,7 +43,7 @@ Follow these rules when you write code:
 - Use consts instead of functions, for example, “const toggle = () =>”. Also, define a type if possible.
 
 ## Project Descrption
- This is a LAN file transfer project.
+This is a LAN file transfer application using WebRTC for peer-to-peer connections, with a simple WebSocket server for signaling. The client is built with TypeScript, Tailwind CSS, and Vite. The project is in the development phase and has some working functionality, but needs improvements.
 
 
 

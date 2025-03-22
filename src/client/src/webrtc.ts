@@ -6,16 +6,8 @@ interface WSMsg {
 	target: string;
 	data: {
 		[key: string]: unknown;
+		clients?: string[];
 	};
-}
-
-interface Data {
-	[key: string]: unknown;
-}
-
-interface WebRTCData {
-	target: string;
-	data: Data;
 }
 
 let myId: string | null = null;
@@ -134,11 +126,15 @@ function connectWSS() {
 
 				console.log(`My ID is: ${jsonObj.target}`);
 			} else if (jsonObj.type === "broadcast" && jsonObj.data.clients) {
-				clients = jsonObj.data.clients.filter((id: string) => id !== myId);
+				clients = (jsonObj.data.clients as string[]).filter(
+					(id: string) => id !== myId,
+				);
 			} else if (jsonObj.type === "offer" && jsonObj.sender !== myId) {
 				console.log("Received offer.", jsonObj);
 				peerConnection
-					.setRemoteDescription(jsonObj.data as RTCSessionDescriptionInit)
+					.setRemoteDescription(
+						jsonObj.data as unknown as RTCSessionDescriptionInit,
+					)
 					.then(() => {
 						console.log("Remote description set successfully.");
 						return peerConnection.createAnswer();
@@ -163,13 +159,15 @@ function connectWSS() {
 				// set answer -> set ice
 				console.log("Received answer:", jsonObj.data);
 				peerConnection
-					.setRemoteDescription(jsonObj.data as RTCSessionDescriptionInit)
+					.setRemoteDescription(
+						jsonObj.data as unknown as RTCSessionDescriptionInit,
+					)
 					.then(() => {
 						console.log("Remote answer description set successfully.");
 					});
 			} else if (jsonObj.type === "ice") {
 				console.log("Received ICE candidate:", jsonObj.data);
-				remoteIceCandidates.push(jsonObj.data as RTCIceCandidate);
+				remoteIceCandidates.push(jsonObj.data as unknown as RTCIceCandidate);
 			}
 		} catch (e) {
 			console.log("New Client Notification:", event.data);
